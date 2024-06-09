@@ -6,6 +6,7 @@ export const register = async (req, res) => {
     console.log("hit")
     try {
         const { username, email, password } = req.body;
+        console.log(username, email, password);
         const hashedPassword = await bcrypt.hash(password, 10);
 
         console.log(hashedPassword)
@@ -21,7 +22,7 @@ export const register = async (req, res) => {
     }
     catch (error) {
         console.log(error);
-        res.status(500).json({ error: "failed to create user" })
+        res.status(500).json({ message: "failed to create user" })
     }
 
 }
@@ -57,14 +58,16 @@ export const login = async (req, res) => {
             id: user.id,
         }, process.env.JWT_SECRET_KEY, { expiresIn: age })
 
+        const { password: userPassword, ...userInfo } = user;
+
         res.cookie("token", token, {
             httpOnly: true,
             // secure:true,
             maxAge: age
-        }).status(200).json({ message: "Login succesfull" })
+        }).status(200).json({ userInfo })
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "Failed to login" })
+        res.status(500).json({ message: "Failed to login" })
     }
 }
 
