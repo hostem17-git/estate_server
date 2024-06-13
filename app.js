@@ -1,5 +1,7 @@
 import express from "express"
 import authRouter from "./routes/auth.route.js"
+import userRouter from "./routes/user.route.js"
+
 import cookieParser from "cookie-parser";
 import cors from "cors"
 const app = express();
@@ -15,7 +17,7 @@ const baseRoute = "/api/v1"
 
 app.use(`${baseRoute}/auth`, authRouter)
 
-// app.use(`${baseRoute}`)
+app.use(`${baseRoute}/users`, userRouter)
 // app.use(`${baseRoute}`)
 // app.use(`${baseRoute}`)
 // app.use(`${baseRoute}`)
