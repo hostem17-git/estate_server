@@ -59,7 +59,8 @@ export const login = async (req, res) => {
         }, process.env.JWT_SECRET_KEY, { expiresIn: age })
 
         const { password: userPassword, ...userInfo } = user;
-
+        console.log(token)
+        console.log(userInfo)
         res.cookie("token", token, {
             httpOnly: true,
             // secure:true,
