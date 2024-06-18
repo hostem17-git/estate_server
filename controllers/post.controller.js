@@ -38,15 +38,25 @@ export const getPost = async (req, res) => {
 }
 
 export const addPost = async (req, res) => {
+    console.log("in add new post")
     const body = req.body;
     const tokenUserID = req.userId;
+    const obj = {
+        ...body.postData,
+        userId: tokenUserID,
+        postDetail: {
+            create: body.postDetail
+        }
+    }
+    console.log("create obkect", obj);
     try {
-
         const newPost = await prisma.post.create({
-            ...body.postData,
-            userId: tokenUserID,
-            postDetail: {
-                create: body.postDetail
+            data: {
+                ...body.postData,
+                userId: tokenUserID,
+                postDetail: {
+                    create: body.postDetail
+                }
             }
         })
 
@@ -59,6 +69,7 @@ export const addPost = async (req, res) => {
 }
 
 export const updatePost = async (req, res) => {
+    console.log("in update post")
     try {
 
         res.status(200).json()

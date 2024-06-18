@@ -26,8 +26,8 @@ export const getUser = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
+    console.log("in update user");
 
-    console.log("in");
     try {
         const id = req.params.id;
         const tokenUserId = req.userId;
@@ -39,9 +39,9 @@ export const updateUser = async (req, res) => {
         }
 
         if (id !== tokenUserId) {
-
             return res.status(403).json({ message: "Not authorized" });
         }
+        
         const updateUser = await prisma.user.update({
             where: { id },
             data: {
